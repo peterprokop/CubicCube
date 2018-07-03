@@ -1,4 +1,4 @@
-![Animated cube](https://media.giphy.com/media/2WjrVBfslOT3M860kC/giphy.gif)
+![Animated cube](blob:https://imgur.com/935f5a95-98dc-4d68-b591-58b67878f10c)
 
 CubicCube is a Swift GUI library for embedding view controllers on faces of cube
 (well, technically it's a parallelepiped, but we'll call it a cube)
