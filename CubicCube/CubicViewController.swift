@@ -5,7 +5,7 @@
 
 import UIKit
 
-class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
+open class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var subControllers: [UIViewController]!
     var rotationAngles: [CGFloat]!
@@ -28,8 +28,28 @@ class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var isStartupAnimationShown = false
     var onlyLeftSwipeAllowed = false
-    
-    override func viewDidLoad() {
+
+    public init(
+        firstViewController: UIViewController,
+        secondViewController: UIViewController,
+        thirdViewController: UIViewController,
+        fourthViewController: UIViewController
+    ) {
+        subControllers = [
+            firstViewController,
+            secondViewController,
+            thirdViewController,
+            fourthViewController,
+        ]
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
@@ -43,7 +63,7 @@ class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
         rotationAngles = Array<CGFloat>(repeating: 0, count: subControllers.count)
     }
 
-    override func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if didLayout {
@@ -70,7 +90,7 @@ class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         for c in subControllers {
@@ -188,7 +208,6 @@ class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
         rotateByAngle(angle: angleDelta, withDuration: turnBackAnimationDuration)
     }
 
-    // MARK: UIGestureRecognizerDelegate
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
 
@@ -210,7 +229,8 @@ class CubicViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    // MARK: UIGestureRecognizerDelegate
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let gc = gestureRecognizer as! UIPanGestureRecognizer
         let vel = gc.velocity(in: view)
         if fabs(vel.x) > fabs(vel.y) {
