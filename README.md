@@ -27,7 +27,7 @@ Stop using this piece of crap. Seriously.
 
 ## Usage
 Minimal working example is following:
-```
+```swift
 import CubicCube
 
 class ViewController: CubicViewController {
